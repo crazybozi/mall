@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <div>你好</div>
+    <div>
+      <i class="iconfont icon-user"/>
+    </div>
   </div>
 </template>
 
@@ -17,6 +19,9 @@ export default {
     width: 150px;
     height: 150px;
     font-size: 18px;
+  }
+  i{
+    color: red;
   }
 
 }
