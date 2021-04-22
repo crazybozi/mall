@@ -1,7 +1,7 @@
 <template>
   <div class="user-box">
     <div align="center">我的</div>
-<router-link to="/detail">跳转详情页面</router-link>
+<router-link to="/login">跳转登陆页面</router-link>
   </div>
 </template>
 <script>

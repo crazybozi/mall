@@ -66,6 +66,19 @@ const routes = [
       index: 2 
     },
   },
+  {
+    path: "/login",
+    name: "login",
+    component: () =>
+      import(
+        /* webpackChunkName: "user" */
+
+        "../views/Login.vue"
+      ),
+    meta: {
+      index: 2,
+    },
+  },
 ];
 const router = new VueRouter({
   routes,
