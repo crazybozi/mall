@@ -19,16 +19,16 @@ export default {
     return {
       transitionName: "slide-left",
       isShowNav: true,
-      ShowMenuList: ["/", "home", "category", "cart", "user"], // 该变量为需要导航栏的数组
+      ShowMenuList: ["/", "/home", "/category", "/cart", "/user"], // 该变量为需要导航栏的数组
     };
   },
   watch: {
     $route(to, from) {
       // 通过 ES6 提供的 includes 属性判断 to.path 是否包含在数组内
       if (this.ShowMenuList.includes(to.path)) {
-        this.isShowNav = false;
-      } else {
         this.isShowNav = true;
+      } else {
+        this.isShowNav = false;
       }
       if (to.meta.index > from.meta.index) {
         this.transitionName = "slide-left"; // 向左滑动

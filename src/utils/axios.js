@@ -3,8 +3,8 @@ import { Toast } from "vant";
 
 axios.defaults.baseURL =
   process.env.NODE_ENV == "development"
-    ? "//121.43.231.185:8080/api/v1"
-    : "//121.43.231.185:8080/api/v1";
+    ? "//localhost:8081/api/v1"
+    : "//localhost:8081/api/v1";
 axios.defaults.withCredentials = true;
 //封装请求的基础路径
 axios.defaults.headers["X-Requested-With"] = "XMLHttpRequest";

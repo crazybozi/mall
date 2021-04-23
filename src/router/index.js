@@ -79,6 +79,33 @@ const routes = [
       index: 2,
     },
   },
+  {
+    path: "/address",
+    name: "address",
+    component: () =>
+      import(
+        /* webpackChunkName: "user" */
+
+        "../views/Address.vue"
+      ),
+    meta: {
+      index: 2,
+    },
+  },
+  {
+    path: "/address-edit",
+    name: "address-edit",
+    component: () =>
+      import(
+        /* webpackChunkName: "user" */
+
+        "../views/AddressEdit.vue"
+      ),
+    meta: {
+      index: 3,
+    },
+  },
+  
 ];
 const router = new VueRouter({
   routes,
