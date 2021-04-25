@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- 顶部导航 -->
-    <header class="home-header wrap" :class="{ active: headerScroll }">
+    <header class="home-header wrap">
       <!-- 点击搜索框跳转到分类页 -->
       <router-link tag="i" to="./category"
         ><i class="iconfont icon-menu"></i
@@ -10,7 +10,6 @@
       <div class="header-search">
         <span class="app-name">楼楼商城</span>
         <i class="iconfont icon-search"></i>
-
         <router-link tag="span" class="search-title" to="./product-list"
           >山河无恙，人间皆安</router-link
         >
@@ -32,9 +31,63 @@
         <span>{{ item.name }}</span>
       </div>
     </div>
+    <!-- 新品上线、热门商品、最新推荐 -->
+    <div class="good">
+      <header class="good-header">新品上线</header>
+      <div class="good-box">
+        <div
+          class="good-item"
+          v-for="item in newGoods"
+          :key="item.goodsId"
+          @click="goToDetail(item)"
+        >
+          <img :src="`http://localhost:8080${item.goodsCoverImg}`" />
+          <div class="good-info">
+            <p class="name">{{ item.goodsName }}</p>
+            <p class="subtitle">{{ item.goodsIntro }}</p>
+            <span class="price">￥ {{ item.sellingPrice }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="good">
+      <header class="good-header">热门商品</header>
+      <div class="good-box">
+        <div
+          class="good-item"
+          v-for="item in hotGoods"
+          :key="item.goodsId"
+          @click="goToDetail(item)"
+        >
+          <img :src="`http://localhost:8080${item.goodsCoverImg}`" />
+          <div class="good-info">
+            <p class="name">{{ item.goodsName }}</p>
+            <p class="subtitle">{{ item.goodsIntro }}</p>
+            <span class="price">￥ {{ item.sellingPrice }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="good" :style="{ paddingBottom: '100px' }">
+      <header class="good-header">最新推荐</header>
+      <div class="good-box">
+        <div
+          class="good-item"
+          v-for="item in recommendGoods"
+          :key="item.goodsId"
+          @click="goToDetail(item)"
+        >
+          <img :src="`http://localhost:8080${item.goodsCoverImg}`" />
+          <div class="good-info">
+            <p class="name">{{ item.goodsName }}</p>
+            <p class="subtitle">{{ item.goodsIntro }}</p>
+            <span class="price">￥ {{ item.sellingPrice }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-
 <script>
 import { getLocal } from "@/common/js/utils";
 import swiper from "@/components/Swiper";
@@ -44,99 +97,44 @@ export default {
   name: "Home",
   data() {
     return {
-      headerScroll: false,
       isLogin: false,
       swiperList: [],
       categoryList: [
-        {
-          name: "楼楼交友",
-          imgUrl: "jiaoyou.png",
-          categoryId: 100001,
-        },
-        {
-          name: "楼楼家政",
-          imgUrl: "jiazheng.png",
-          categoryId: 100003,
-        },
-        {
-          name: "楼楼水产",
-          imgUrl: "shuichan1.png",
-          categoryId: 100002,
-        },
-        {
-          name: "楼楼租车",
-          imgUrl: "zuche.png",
-          categoryId: 100004,
-        },
-        {
-          name: "楼楼招聘",
-          imgUrl: "pin.png",
-          categoryId: 100005,
-        },
-        {
-          name: "楼楼二手",
-          imgUrl: "ershou.png",
-          categoryId: 100006,
-        },
-        {
-          name: "楼楼宠物",
-          imgUrl: "chongwu.png",
-          categoryId: 100007,
-        },
-        {
-          name: "楼楼外卖",
-          imgUrl: "wm.png",
-          categoryId: 100008,
-        },
-        {
-          name: "楼楼电器",
-          imgUrl: "dianqi.png",
-          categoryId: 100009,
-        },
-        {
-          name: "楼楼充值",
-          imgUrl: "czcz.png",
-          categoryId: 1000010,
-        },
+        { name: "楼楼交友", imgUrl: "jiaoyou.png", categoryId: 100001 },
+        { name: "楼楼家政", imgUrl: "jiazheng.png", categoryId: 100003 },
+        { name: "楼楼水产", imgUrl: "shuichan1.png", categoryId: 100002 },
+        { name: "楼楼租车", imgUrl: "zuche.png", categoryId: 100004 },
+        { name: "楼楼招聘", imgUrl: "pin.png", categoryId: 100005 },
+        { name: "楼楼二手", imgUrl: "ershou.png", categoryId: 100006 },
+        { name: "楼楼宠物", imgUrl: "chongwu.png", categoryId: 100007 },
+        { name: "楼楼外卖", imgUrl: "wm.png", categoryId: 100008 },
+        { name: "楼楼电器", imgUrl: "dianqi.png", categoryId: 100009 },
+        { name: "楼楼充值", imgUrl: "czcz.png", categoryId: 1000010 },
       ],
       hotGoods: [],
       newGoods: [],
       recommendGoods: [],
     };
   },
-  components: {
-    swiper,
-  },
+  components: { swiper },
   async mounted() {
-    window.addEventListener("scroll", this.pageScroll);
     const token = getLocal("token");
     if (token) {
       this.isLogin = true;
     }
-    Toast.loading({
-      message: "加载中...",
-      forbidClick: true,
-    });
+    Toast.loading({ message: "加载中...", forbidClick: true });
     const { data } = await getHome();
-    this.swiperList = data.carousels; //轮播图
-    this.hotGoods = data.hotGoods; // 热门商品
-    this.newGoods = data.newGoods; // 新品上线
-    this.recommendGoods = data.recommendGoods; // 最新推荐
-  },
-  methods: {
-    pageScroll() {
-      let scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      scrollTop > 100
-        ? (this.headerScroll = true)
-        : (this.headerScroll = false);
-    },
+    this.swiperList = data.carousels;
+    //轮播图
+    this.hotGoods = data.hotGoods;
+    // 热门商品
+    this.newGoods = data.newGoods;
+    // 新品上线
+    this.recommendGoods = data.recommendGoods;
+    // 最新推荐
   },
 };
 </script>
-
 <style lang="less" scoped>
 @import "../common/style/mixin";
 .home {
