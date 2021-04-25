@@ -23,8 +23,15 @@
         <van-icon name="manager-o" />
       </router-link>
     </header>
-
+    <!-- 轮播图 -->
     <swiper :list="swiperList"></swiper>
+    <!-- 分类栏目 -->
+    <div class="category-list">
+      <div v-for="item in categoryList" v-bind:key="item.categoryId">
+        <img :src="require('../assets/' + item.imgUrl)" />
+        <span>{{ item.name }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
