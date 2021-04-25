@@ -6,11 +6,11 @@
         <span>首页</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="category">
-        <i class="iconfont icon-category"></i>
+        <i class="iconfont icon-category1"></i>
         <span>分类</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="cart">
-        <i class="iconfont icon-cart"></i>
+        <i class="iconfont icon-qicheqianlian-select"></i>
         <span>购物车</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="user">

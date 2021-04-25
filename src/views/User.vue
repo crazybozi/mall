@@ -4,6 +4,7 @@
     <div class="user-info">
       <div class="info">
         <img src="../assets/me.jpg" />
+        <router-link to="./login">登录</router-link>
         <div class="user-desc">
           <span>昵称：{{ user.nickName }}</span>
           <span>登录名：{{ user.loginName }}</span>

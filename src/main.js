@@ -12,6 +12,10 @@ import {
   Grid,
   GridItem,
   AddressList,
+  AddressEdit,
+  Swipe,
+  SwipeItem,
+  SwipeCell,
 } from "vant";
 import "lib-flexible/flexible";
 
@@ -22,7 +26,11 @@ Vue.use(Button)
 Vue.use(Icon)
   .use(GridItem)
   .use(Grid)
-  .use(AddressList);
+  .use(AddressList)
+  .use(AddressEdit)
+  .use(Swipe)
+  .use(SwipeItem)
+  .use(SwipeCell);
 Vue.prototype.$md5 = md5;
 Vue.config.productionTip = false;
 
